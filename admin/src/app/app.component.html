@@ -1,7 +1,8 @@
 <nav class="mb-3 navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -13,13 +14,16 @@
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
@@ -47,102 +51,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-9">
-      <h2>Create / Edit Question</h2>
-
-      <form>
-        <div class="mb-3">
-          <label for="questionText" class="form-label">
-            Text
-            <input type="text" class="form-control" id="questionText">
-          </label>
-        </div>
-
-        <div class="mb-3">
-          <h2>Answers</h2>
-          <div class="row align-items-center">
-            <div class="col-6">
-              <input type="text" class="form-control" id="answer1">
-            </div>
-            <div class="col-auto">
-              <button type="button" class="btn btn-light">
-                <i class="fa fa-minus"></i>
-              </button>
-            </div>
-            <div class="col-auto">
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Correct?</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row align-items-center">
-            <div class="col-6">
-              <input type="text" class="form-control" id="answer1">
-            </div>
-            <div class="col-auto">
-              <button type="button" class="btn btn-light">
-                <i class="fa fa-minus"></i>
-              </button>
-            </div>
-            <div class="col-auto">
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Correct?</label>
-              </div>
-            </div>
-          </div>
-
-          <button type="button" class="btn btn-light">
-            <i class="fa fa-plus"></i>
-          </button>
-        </div>
-
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
-      <h2>Questions</h2>
-      <table  class="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Question Text</th>
-          <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>
-            <button type="button" class="btn btn-light">
-              <i class="far fa-edit"></i>
-            </button>
-
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <i class="far fa-trash-alt"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>
-            <button type="button" class="btn btn-light">
-              <i class="far fa-edit"></i>
-            </button>
-
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <i class="far fa-trash-alt"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
