@@ -1,14 +1,33 @@
 import './App.css';
 import Quiz from "./Quiz";
 import {Component} from "react";
+import {questions} from "./data";
 
 class App extends Component {
+    get current() {
+        return this.state.questions[this.state.index];
+    }
+
     constructor(props) {
         super(props);
 
         this.state = {
-            isStarted: true
+            isStarted: true,
+            questions: questions,
+            index: 0
         }
+    }
+
+    next(answerId) {
+        if (!this.state.questions[this.state.index + 1]) {
+            this.toggle();
+            return;
+        }
+
+        console.info('it works', answerId);
+        this.setState((state) => ({
+            index: state.index + 1
+        }))
     }
 
     toggle() {
@@ -25,7 +44,13 @@ class App extends Component {
                 </header>
                 <div className="page__content main">
                     <aside className="main__sidebar sidebar">
-                        list
+                        {this.state.questions.map((item) => {
+                            return (
+                                <div key={item.id}>
+                                    {item.question}
+                                </div>
+                            )
+                        })}
                     </aside>
                     <main className="main__content">
                         {this.state.isStarted ? 'true' : 'false'}
@@ -33,7 +58,7 @@ class App extends Component {
                         {
                             this.state.isStarted
                                 ?
-                                <Quiz title={'Сколько пальцев на руке?'} oneMore={'123'}/>
+                                <Quiz question={this.current} next={(answerId) => this.next(answerId)}/>
                                 :
                                 <div>Вы ответили правильно на X из X вопросов</div>
                         }
