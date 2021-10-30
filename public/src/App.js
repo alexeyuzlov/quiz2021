@@ -42,30 +42,31 @@ class App extends Component {
                 <header className="header page__header">
                     <h1>Quiz</h1>
                 </header>
+
                 <div className="page__content main">
                     <aside className="main__sidebar sidebar">
-                        {this.state.questions.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                    {item.question}
-                                </div>
-                            )
-                        })}
+                        {
+                            this.state.questions.map((item) => {
+                                return (
+                                    <div key={item.id}>
+                                        {item.question}
+                                    </div>
+                                )
+                            })
+                        }
                     </aside>
-                    <main className="main__content">
-                        {this.state.isStarted ? 'true' : 'false'}
 
+                    <main className="main__content">
                         {
                             this.state.isStarted
                                 ?
                                 <Quiz question={this.current} next={(answerId) => this.next(answerId)}/>
                                 :
-                                <div>Вы ответили правильно на X из X вопросов</div>
+                                <div>Вы ответили правильно на X из {this.state.questions.length} вопросов</div>
                         }
-
-                        <button type="button" onClick={() => this.toggle()}>Toggle</button>
                     </main>
                 </div>
+
                 <footer className="footer page__footer">
                     Alexey Uzlov, 2021
                 </footer>
