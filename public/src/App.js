@@ -1,7 +1,6 @@
 import './App.css';
 import Quiz from "./Quiz";
 import {Component} from "react";
-import {questions} from "./data";
 
 class App extends Component {
     get current() {
@@ -12,10 +11,42 @@ class App extends Component {
         super(props);
 
         this.state = {
+            loading: true,
             isStarted: true,
-            questions: questions,
+            questions: [],
             index: 0
         }
+    }
+
+    componentDidMount() {
+        this.getAll();
+    }
+
+    getAll() {
+        this.setState({
+            loading: true
+        });
+
+        fetch("http://localhost:3000/questions")
+            .then((res) => console.info(res))
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.info('it works');
+
+                    this.setState({
+                        loading: false,
+                        questions: result
+                    });
+                },
+                (error) => {
+                    console.info(error);
+                    this.setState({
+                        loading: false,
+                        // error: true
+                    });
+                }
+            )
     }
 
     next(answerId) {
@@ -58,11 +89,12 @@ class App extends Component {
 
                     <main className="main__content">
                         {
-                            this.state.isStarted
-                                ?
-                                <Quiz question={this.current} next={(answerId) => this.next(answerId)}/>
-                                :
-                                <div>Вы ответили правильно на X из {this.state.questions.length} вопросов</div>
+                            this.state.loading ? 'Загрузка...' :
+                                this.current
+                                    ?
+                                    <Quiz question={this.current} next={(answerId) => this.next(answerId)}/>
+                                    :
+                                    <div>Вы ответили правильно на X из {this.state.questions.length} вопросов</div>
                         }
                     </main>
                 </div>

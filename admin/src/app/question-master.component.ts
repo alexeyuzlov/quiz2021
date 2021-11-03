@@ -1,29 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { questions } from './data';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-question-master',
-  templateUrl: './question-master.component.html',
+    selector: 'app-question-master',
+    templateUrl: './question-master.component.html',
 })
 export class QuestionMasterComponent implements OnInit {
-  public questions: Question[] = questions;
+    public loading: boolean = false;
 
-  constructor() {
-  }
+    public questions: Question[] = [];
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private http: HttpClient
+    ) {
+    }
 
+    ngOnInit(): void {
+        this.getAll();
+    }
+
+    getAll() {
+        this.loading = true;
+        this.http.get<Question[]>('http://localhost:3000/questions').subscribe(
+            (data) => {
+                this.questions = data;
+                this.loading = false;
+            },
+        );
+    }
+
+    remove(id: number) {
+        this.loading = true;
+
+        console.info(1);
+        this.http.delete('http://localhost:3000/questions/' + id).subscribe(
+            (data) => {
+                this.questions = this.questions.filter((q) => q.id !== id);
+                this.loading = false;
+                console.info(3);
+            },
+            ()=> console.info(4)
+        );
+        console.info(2);
+    }
 }
 
 interface Question {
-  id: number;
-  question: string
-  answers: Answer[];
-  correct: number;
+    id: number;
+    question: string
+    answers: Answer[];
+    correct: number;
 }
 
 interface Answer {
-  id: number;
-  title: string;
+    id: number;
+    title: string;
 }
