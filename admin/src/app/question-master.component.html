@@ -1,8 +1,12 @@
 <h2>Questions</h2>
 
-<a class="btn btn-primary" routerLink="/create">Create New</a>
+<div class="mb-2">
+  <a class="btn btn-primary" routerLink="/create">Create New</a>
+</div>
 
-<table class="table">
+<div *ngIf="loading">Загрузка...</div>
+
+<table [hidden]="loading" class="table">
   <thead>
   <tr>
     <th>#</th>

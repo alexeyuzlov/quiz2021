@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Question } from './question';
 
 @Component({
     selector: 'app-question-master',
@@ -45,14 +46,3 @@ export class QuestionMasterComponent implements OnInit {
     }
 }
 
-interface Question {
-    id: number;
-    question: string
-    answers: Answer[];
-    correct: number;
-}
-
-interface Answer {
-    id: number;
-    title: string;
-}

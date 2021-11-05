@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { QuestionEditComponent } from './question-edit.component';
 import { QuestionMasterComponent } from './question-master.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],

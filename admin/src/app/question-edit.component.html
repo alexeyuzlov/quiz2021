@@ -1,54 +1,40 @@
-<h2>Create / Edit Question</h2>
+<h2 *ngIf="!id">Create Question</h2>
+<h2 *ngIf="id">Edit Question</h2>
 
-<form>
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div class="mb-3">
     <label for="questionText" class="form-label">
       Text
-      <input type="text" class="form-control" id="questionText">
+      <input type="text" class="form-control" id="questionText" formControlName="question">
     </label>
   </div>
 
-  <div class="mb-3">
+  <div formArrayName="answers" class="mb-3">
     <h2>Answers</h2>
-    <div class="row align-items-center">
+    <div *ngFor="let answerGroup of answers.controls; let i=index" class="row align-items-center">
       <div class="col-6">
-        <input type="text" class="form-control" id="answer1">
+        <input type="text" class="form-control" id="answer1" [formControl]="answerGroup.get('answer')">
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-light">
+        <button type="button" class="btn btn-light" (click)="removeAnswer(i)">
           <i class="fa fa-minus"></i>
         </button>
       </div>
       <div class="col-auto">
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Correct?</label>
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input"
+                   [formControl]="answerGroup.get('correct')">
+            Correct?
+          </label>
         </div>
       </div>
     </div>
 
-    <div class="row align-items-center">
-      <div class="col-6">
-        <input type="text" class="form-control" id="answer1">
-      </div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-light">
-          <i class="fa fa-minus"></i>
-        </button>
-      </div>
-      <div class="col-auto">
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Correct?</label>
-        </div>
-      </div>
-    </div>
-
-    <button type="button" class="btn btn-light">
+    <button type="button" class="btn btn-light" (click)="addAnswer()">
       <i class="fa fa-plus"></i>
     </button>
   </div>
-
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

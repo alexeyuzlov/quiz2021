@@ -17,79 +17,21 @@
           "title": "molestie nibh in"
         }
       ],
-      "correct": 3
+      "correct": [
+        0,
+        1
+      ]
     },
     {
-      "question": "Новый вопрос",
+      "question": "Сколько пальцев на руке",
       "answers": [
-        {
-          "id": 1,
-          "title": "magna vulputate luctus"
-        },
-        {
-          "id": 2,
-          "title": "id ornare imperdiet"
-        },
-        {
-          "id": 3,
-          "title": "ullamcorper augue a"
-        }
+        "5",
+        "4"
       ],
-      "correct": 1,
+      "correct": [
+        0
+      ],
       "id": 5
-    },
-    {
-      "question": "Новый вопрос",
-      "answers": [
-        {
-          "id": 1,
-          "title": "magna vulputate luctus"
-        },
-        {
-          "id": 2,
-          "title": "id ornare imperdiet"
-        },
-        {
-          "id": 3,
-          "title": "ullamcorper augue a"
-        }
-      ],
-      "correct": 1,
-      "id": 8
-    },
-    {
-      "question": "Новый вопрос",
-      "answers": [
-        {
-          "id": 1,
-          "title": "magna vulputate luctus"
-        },
-        {
-          "id": 2,
-          "title": "id ornare imperdiet"
-        },
-        {
-          "id": 3,
-          "title": "ullamcorper augue a"
-        }
-      ],
-      "correct": 1,
-      "id": 9
-    },
-    {
-      "question": "Новый вопрос",
-      "answers": [
-        {
-          "id": 1,
-          "title": "magna vulputate luctus"
-        },
-        {
-          "id": 2,
-          "title": "id ornare imperdiet"
-        }
-      ],
-      "correct": 2,
-      "id": 10
     }
   ]
 }
