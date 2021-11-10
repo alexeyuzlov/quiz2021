@@ -8,7 +8,7 @@ class Quiz extends Component {
     constructor(props) {
         super(props);
 
-        console.info(props.question)
+        // console.info(props.question)
 
         this.state = {
             selectedId: null
