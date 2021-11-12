@@ -1,96 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionService } from './question.service';
+import { finalize } from 'rxjs/operators';
+import { fromQuestionEdit, Question, QuestionEdit } from './question';
 
 @Component({
-  selector: 'app-question-edit',
-  templateUrl: './question-edit.component.html',
+    selector: 'app-question-edit',
+    templateUrl: './question-edit.component.html',
 })
 export class QuestionEditComponent implements OnInit {
-  public form: FormGroup;
+    @Input() public question: QuestionEdit;
 
-  public id: number;
+    public form: FormGroup;
 
-  get answers(): FormArray {
-    return this.form.get('answers') as FormArray;
-  }
+    public loading: boolean;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _route: ActivatedRoute,
-    private _http: HttpClient,
-  ) {
-  }
+    constructor(
+        private _fb: FormBuilder,
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _questionService: QuestionService,
+    ) {
+    }
 
-  public ngOnInit() {
-    this.form = this._fb.group({
-      question: [''],
-      answers: this._fb.array([])
-    });
+    public ngOnInit() {
+        this._initForm();
+        this._initQuestion();
+    }
 
-    this._route.paramMap.subscribe(
-      (param: ParamMap) => {
-        this.id = +param.get('id');
-        if (this.id) {
-          // edit mode
-          this._http.get('http://localhost:3000/questions/' + this.id).subscribe(
-            (question: any) => {
-              const prepared = {
-                question: question.question,
-                answers: question.answers.map((answer, index) => {
-                  let newAnswer = {
-                    answer,
-                    correct: question.correct.includes(index)
-                  }
+    public submit() {
+        const question: Question = fromQuestionEdit(this.form.value);
 
-                  this.addAnswer();
-
-                  return newAnswer;
-                })
-              }
-
-              this.form.patchValue(prepared);
-            }
-          );
+        let fn;
+        if (this.question.id) {
+            fn = this._questionService.update(this.question.id, question)
+        } else {
+            fn = this._questionService.create(question)
         }
-      }
-    )
-  }
 
-  public addAnswer() {
-    this.answers.push(
-      this._fb.group({
-        answer: [''],
-        correct: [false]
-      }),
-    )
-  }
-
-  public removeAnswer(i: number) {
-    this.answers.removeAt(i);
-  }
-
-  public submit() {
-    const body = this.form.value;
-
-    const preparedBody = {
-      question: body.question,
-      answers: body.answers.map((answerGroup) => answerGroup.answer),
-      correct: body.answers
-        .map((answerGroup, index) => ({index, correct: answerGroup.correct}))
-        .filter(({index, correct}) => correct)
-        .map((data) => data.index),
+        this.loading = true;
+        fn.pipe(
+            finalize(() => this.loading = false)
+        ).subscribe(() => this._router.navigate(['/']));
     }
 
-    const editFn = this._http.put('http://localhost:3000/questions/' + this.id, preparedBody);
-    const createFn = this._http.post('http://localhost:3000/questions', preparedBody);
-
-    console.info(preparedBody);
-    if (this.id) {
-      editFn.subscribe(() => console.info('edited'))
-    } else {
-      createFn.subscribe(() => console.info('created'))
+    private _initForm() {
+        this.form = this._fb.group({
+            question: [''],
+            answers: this._fb.array([])
+        });
     }
-  }
+
+    private _initQuestion() {
+        if (this.question) {
+            this.form.patchValue(this.question);
+            return;
+        }
+
+        this.question = this._route.snapshot.data.question;
+        if (this.question) {
+            this.form.patchValue(this.question);
+        }
+    }
 }

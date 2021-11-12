@@ -7,21 +7,25 @@ import { QuestionEditComponent } from './question-edit.component';
 import { QuestionMasterComponent } from './question-master.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmDirective } from './confirm.directive';
+import { AnswersEditComponent } from './answers-edit.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QuestionEditComponent,
-    QuestionMasterComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        QuestionEditComponent,
+        QuestionMasterComponent,
+        ConfirmDirective,
+        AnswersEditComponent,
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AppRoutingModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

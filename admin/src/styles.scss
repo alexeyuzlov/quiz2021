@@ -1,3 +1,7 @@
 $primary: green;
 
 @import "~bootstrap";
+
+.form-label {
+    min-width: 75%; // TODO wrong, for lesson only
+}

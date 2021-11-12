@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Question } from './question';
+import { QuestionService } from './question.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-question-master',
@@ -12,7 +13,7 @@ export class QuestionMasterComponent implements OnInit {
     public questions: Question[] = [];
 
     constructor(
-        private http: HttpClient
+        private _questionService: QuestionService,
     ) {
     }
 
@@ -22,27 +23,22 @@ export class QuestionMasterComponent implements OnInit {
 
     getAll() {
         this.loading = true;
-        this.http.get<Question[]>('http://localhost:3000/questions').subscribe(
-            (data) => {
-                this.questions = data;
-                this.loading = false;
-            },
+        this._questionService.getAll().pipe(
+            finalize(() => this.loading = false)
+        ).subscribe(
+            (data) => this.questions = data
         );
     }
 
     remove(id: number) {
         this.loading = true;
-
-        console.info(1);
-        this.http.delete('http://localhost:3000/questions/' + id).subscribe(
-            (data) => {
+        this._questionService.remove(id).pipe(
+            finalize(() => this.loading = false)
+        ).subscribe(
+            () => {
                 this.questions = this.questions.filter((q) => q.id !== id);
-                this.loading = false;
-                console.info(3);
             },
-            ()=> console.info(4)
         );
-        console.info(2);
     }
 }
 
