@@ -1,37 +1,42 @@
 {
   "questions": [
     {
-      "id": 4,
-      "question": "quisque id justo",
+      "question": "Сколько пальцев на руке",
       "answers": [
-        {
-          "id": 1,
-          "title": "viverra dapibus nulla"
-        },
-        {
-          "id": 2,
-          "title": "eu mi nulla"
-        },
-        {
-          "id": 3,
-          "title": "molestie nibh in"
-        }
+        "3",
+        "4",
+        "5"
+      ],
+      "correct": [
+        2
+      ],
+      "id": 1
+    },
+    {
+      "question": "Лучший язык программирования",
+      "answers": [
+        "php",
+        "js",
+        "c#"
       ],
       "correct": [
         0,
-        1
-      ]
+        1,
+        2
+      ],
+      "id": 2
     },
     {
-      "question": "Сколько пальцев на руке",
+      "question": "Столица России",
       "answers": [
-        "5",
-        "4"
+        "Москва",
+        "Саранск",
+        "Ростов"
       ],
       "correct": [
         0
       ],
-      "id": 5
+      "id": 3
     }
   ]
 }
